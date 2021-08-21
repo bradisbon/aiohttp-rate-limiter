@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "aiohttp-rate-limiter"
+version = "0.1.0"
+description = ""
+authors = ["bradi <bradisbon@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+aiohttp = "^3.7.4"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0a5"]
+build-backend = "poetry.core.masonry.api"

@@ -1,5 +1,4 @@
 import asyncio
-import contextlib
 import time
 
 import aiohttp
@@ -19,14 +18,28 @@ class RateLimitedClient:
         while self._is_waiting():
             await asyncio.sleep(0.1)
 
-    @contextlib.asynccontextmanager
     async def get(self, *args, **kwargs):
         await self._wait()
         self._last_request = time.monotonic()
-        yield self._client.get(*args,**kwargs)
+        return self._client.get(*args,**kwargs)
 
-    @contextlib.asynccontextmanager
     async def post(self, *args, **kwargs):
         await self._wait()
         self._last_request = time.monotonic()
-        yield self._client.post(*args,**kwargs)
+        return self._client.post(*args,**kwargs)
+
+    async def patch(self, *args, **kwargs):
+        await self._wait()
+        self._last_request = time.monotonic()
+        return self._client.patch(*args,**kwargs)
+
+    async def put(self, *args, **kwargs):
+        await self._wait()
+        self._last_request = time.monotonic()
+        return self._client.put(*args,**kwargs)
+
+    async def delete(self, *args, **kwargs):
+        await self._wait()
+        self._last_request = time.monotonic()
+        return self._client.delete(*args,**kwargs)
+ 

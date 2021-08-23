@@ -5,14 +5,14 @@ import aiohttp
 
 
 class RateLimitedClient:
-    MAX_REQUESTS_PER_SECOND = 9
 
-    def __init__(self, client:aiohttp.ClientSession) -> None:
+    def __init__(self, client:aiohttp.ClientSession, max_requests_per_second: int) -> None:
+        self.max_requests_per_second = max_requests_per_second
         self._client = client
         self._last_request = time.monotonic()
 
     def _is_waiting(self):
-        return time.monotonic() - self._last_request < 1 / self.MAX_REQUESTS_PER_SECOND
+        return time.monotonic() - self._last_request < 1 / self.max_requests_per_second
 
     async def _wait(self):
         while self._is_waiting():
